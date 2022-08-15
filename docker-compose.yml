@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  app: 
+    container_name: apiapp
+    build: .
+    ports: 
+      - "80:80"
+    environment: 
+      - MONGODB_CONNSTRING=mongodb://mongousr:mongopwd@mongodb
+    depends_on:
+      - db
+  db:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=mongousr
+      - MONGODB_INITDB_ROOT_PASSWORD=mongopwd
+    volumes:
+      - ./data:/data/db
